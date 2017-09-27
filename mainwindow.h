@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include "post.h"
-#include "dynitem.h"
+#include "list.h"
+#include <QFile>
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +18,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private:
-    DynItem* curr;
+    List list;
     int matrix[11][11];
     int counter;
     Ui::MainWindow *ui;
@@ -25,9 +26,18 @@ private:
     int D(QString a, QString b);
     int min(int a, int b, int c);
     int m(QChar y, QChar z);
+    Post a;
+    QFile file;
 private slots:
     void addPost();
     void func();
+    void size_l();
+    void show_l();
+    void del_l();
+    void isEmpty_l();
+    void similar();
+    void writeToF();
+    void readFromF();
 signals:
     void canCheck();
 

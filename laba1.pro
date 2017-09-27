@@ -13,10 +13,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     post.cpp \
-    dynitem.cpp
+    dynitem.cpp \
+    list.cpp
 
 HEADERS  += mainwindow.h \
     post.h \
-    dynitem.h
+    dynitem.h \
+    list.h
 
 FORMS    += mainwindow.ui

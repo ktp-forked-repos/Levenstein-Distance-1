@@ -14,7 +14,9 @@ class Post
 {
 public:
     Post();
-    Post(QString t, QString n, QString d);
+    Post(QString n, QString d, QString t);
+    Post (const Post &a);
+    ~Post();
    // Post (const Post &);
     QString text;
     QString name;

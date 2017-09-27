@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Mon 25. Sep 19:17:39 2017
+** Created: Tue 26. Sep 18:15:53 2017
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -36,13 +36,22 @@ static const uint qt_meta_data_MainWindow[] = {
  // slots: signature, parameters, type, tag, flags
       23,   11,   11,   11, 0x08,
       33,   11,   11,   11, 0x08,
+      40,   11,   11,   11, 0x08,
+      49,   11,   11,   11, 0x08,
+      58,   11,   11,   11, 0x08,
+      66,   11,   11,   11, 0x08,
+      78,   11,   11,   11, 0x08,
+      88,   11,   11,   11, 0x08,
+      99,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0canCheck()\0addPost()\0"
-    "func()\0"
+    "func()\0size_l()\0show_l()\0del_l()\0"
+    "isEmpty_l()\0similar()\0writeToF()\0"
+    "readFromF()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -77,9 +86,16 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 0: canCheck(); break;
         case 1: addPost(); break;
         case 2: func(); break;
+        case 3: size_l(); break;
+        case 4: show_l(); break;
+        case 5: del_l(); break;
+        case 6: isEmpty_l(); break;
+        case 7: similar(); break;
+        case 8: writeToF(); break;
+        case 9: readFromF(); break;
         default: ;
         }
-        _id -= 3;
+        _id -= 10;
     }
     return _id;
 }

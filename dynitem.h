@@ -6,11 +6,13 @@ class DynItem
 {
 public:
     DynItem();
-    Post *data;
-    void resize();
-    int size;
-private:
-    Post *reserve;
+    DynItem(Post a);
+    DynItem(DynItem &a);
+    ~DynItem();
+    Post data;
+    DynItem *next, *prev;
+
+
 
 
 };
