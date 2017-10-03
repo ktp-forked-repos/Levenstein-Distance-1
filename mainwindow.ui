@@ -81,7 +81,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDateEdit" name="dateEdit"/>
+            <widget class="QLineEdit" name="lineEdit_3"/>
            </item>
           </layout>
          </item>
@@ -133,7 +133,7 @@
        <item>
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Cash:</string>
+          <string>Console:</string>
          </property>
         </widget>
        </item>
@@ -169,14 +169,14 @@
        <item>
         <widget class="QPushButton" name="pushButton_3">
          <property name="text">
-          <string>size</string>
+          <string>Size</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_4">
          <property name="text">
-          <string>isEmpty</string>
+          <string>Is Empty</string>
          </property>
         </widget>
        </item>
@@ -206,7 +206,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_6">
        <property name="text">
-        <string>show</string>
+        <string>Show</string>
        </property>
       </widget>
      </item>

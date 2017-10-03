@@ -5,6 +5,7 @@
 #include "post.h"
 #include "list.h"
 #include <QFile>
+using namespace A;
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +20,6 @@ public:
     ~MainWindow();
 private:
     List list;
-    int matrix[11][11];
     int counter;
     Ui::MainWindow *ui;
     void showPost();

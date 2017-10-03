@@ -10,6 +10,8 @@ TARGET = laba1
 TEMPLATE = app
 
 
+CONFIG += console
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     post.cpp \

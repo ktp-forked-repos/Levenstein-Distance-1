@@ -32,21 +32,20 @@ void MainWindow::readFromF()
     file.open(QIODevice::ReadOnly);
     while(!file.atEnd())
     {
-        //Post a(file.readLine(), file.readLine(), file.readLine());
         QString name = file.readLine();
         QString date = file.readLine();
         QString text = file.readLine();
+
+        name.remove("\r\n");
+        text.remove("\r\n");
+        text.remove("\n");
+        name.remove("\n");
         Post a(name, date, text);
-        a.name.remove("\r\n");
-        a.date.remove("\r\n");
-        a.text.remove("\r\n");
-        a.text.remove("\n");
-        a.name.remove("\n");
-        a.date.remove("\n");
         list.push_front(a);
-        ui->textEdit_2->append(a.name);
-        ui->textEdit_2->append(a.date);
-        ui->textEdit_2->append(a.text);
+        ui->textEdit_2->append((a.getName()));
+        ui->textEdit_2->append((a.getDate()));
+        ui->textEdit_2->append((a.getText()));
+        counter+=1;
     }
     file.close();
     if(list.size()>1) ui->pushButton_2->setEnabled(true); else ui->pushButton_2->setDisabled(true);
@@ -60,10 +59,9 @@ void MainWindow::writeToF()
     QTextStream stream(&file);
     for(int i = 0; i<list.size(); i++)
     {
-        list[i]->data.name.remove("\n");
-        list[i]->data.date.remove("\n");
-        list[i]->data.text.remove("\n");
-        stream<<list[i]->data.name+"\r\n"+list[i]->data.date+"\r\n"+list[i]->data.text+"\r\n";
+        //list[i]->data.name.remove("\n");
+        //list[i]->data.text.remove("\n");
+        stream<<(list[i].data.getName())+"\r\n"+(list[i].data.getDate())+"\r\n"+(list[i].data.getText())+"\r\n";
     }
     file.close();
 }
@@ -88,7 +86,7 @@ void MainWindow::size_l()
 void MainWindow::show_l()
 {
     for(int i = 0; i<list.size(); i++)
-        ui->textEdit_2->append("-----Post # "+ QString::number(i+1)+ "------\nName: "+  list[i]->data.name +"\nDate: "+ list[i]->data.date +"\nMessage:\n"+ list[i]->data.text+"\n");
+        ui->textEdit_2->append("-----Post # "+ QString::number(i+1)+ "------\nName: "+  (list[i].data.getName()) +"\nDate: "+ (list[i].data.getDate())+"\nMessage:\n"+ (list[i].data.getText())+"\n");
 }
 
 void MainWindow::del_l()
@@ -100,43 +98,41 @@ void MainWindow::del_l()
 
 void MainWindow::similar()
 {
+    int min = 0;
     if(ui->textEdit->toPlainText()!=""&&list.size()>=1)
     {
-        Post a(ui->dateEdit->date().toString("dd/MM/yyyy"), ui->lineEdit->text(), ui->textEdit->toPlainText());
-//        a.date = ui->dateEdit->date().toString("dd/MM/yyyy");
-//        a.name = ui->lineEdit->text();
-//        a.text = ui->textEdit->toPlainText();
+        qDebug("similar");
+        Post a(ui->lineEdit->text(),ui->lineEdit_3->text(), ui->textEdit->toPlainText() );
         int x = 0;
-        int min=D(a.text, list[0]->data.text);
+        min=D((a.getText()), (list[0].data.getText()));
         for(int i = 1; i<list.size(); i++)
         {
-            if(x=D(a.text, list[i]->data.text)<min) min = x;
+            if(D((a.getText()), (list[0].data.getText()))<min) min = D((a.getText()), (list[0].data.getText()));
         }
+        qDebug("%d", min);
+        ui->textEdit_2->append("Minimum distance is "+QString::number(min));
         for(int i = 0; i<list.size(); i++)
         {
-            if(min == D(a.text, list[i]->data.text)) ui->textEdit_2->append("Similar post :\nName:"+  list[i]->data.name +"\nDate: "+ list[i]->data.date +"\nMessage:\n"+ list[i]->data.text+"\n");
+            if(min == D((a.getText()), (list[0].data.getText()))) ui->textEdit_2->append("Similar post:\nName:"+  list[i].data.getName() +"\nDate: "+ list[i].data.getDate() +"\nMessage:\n"+ list[i].data.getText()+"\n");
         }
     }
 }
 
 void MainWindow::addPost()
-{
+{   
     if( ui->lineEdit->text()!="" && ui->textEdit->toPlainText()!="")
     {
         if(list.size()>=1) ui->pushButton_2->setEnabled(true); else ui->pushButton_2->setDisabled(true);
-//        a.date = ui->dateEdit->date().toString("dd/MM/yyyy");
-//        a.name = ui->lineEdit->text();
-//        a.text = ui->textEdit->toPlainText();
-        Post a(ui->lineEdit->text(), ui->dateEdit->date().toString("dd/MM/yyyy"),ui->textEdit->toPlainText());
+        Post a(ui->lineEdit->text(), ui->lineEdit_3->text(),ui->textEdit->toPlainText());
         if(ui->checkBox->isChecked())
         {
             list.push_back(a);
-            ui->textEdit_2->append("-----Post # "+ QString::number(counter+1)+ "------\nName: "+  list.pop_back()->data.name +"\nDate: "+ list.pop_back()->data.date +"\nMessage:\n"+ list.pop_back()->data.text+"\n");
+            ui->textEdit_2->append("-----Post # "+ QString::number(counter+1)+ "------\nName: "+  list.pop_back().data.getName() +"\nDate: "+ list.pop_back().data.getDate() +"\nMessage:\n"+ list.pop_back().data.getText()+"\n");
         }
         else
         {
             list.push_front(a);
-            ui->textEdit_2->append("-----Post # "+ QString::number(counter+1)+ "------\nName: "+  list.pop_front()->data.name +"\nDate: "+ list.pop_front()->data.date +"\nMessage:\n"+ list.pop_front()->data.text+"\n");
+            ui->textEdit_2->append("-----Post # "+ QString::number(counter+1)+ "------\nName: "+  list.pop_front().data.getName() +"\nDate: "+ list.pop_front().data.getDate() +"\nMessage:\n"+ list.pop_front().data.getText()+"\n");
         }
         ui->textEdit->clear();
         ui->lineEdit->clear();
@@ -186,15 +182,15 @@ void MainWindow::func()
     ui->tableWidget->setColumnCount(list.size());
     for(int i = 0; i<list.size(); i++)
     {
-        ui->tableWidget->setVerticalHeaderItem(i, new QTableWidgetItem(list[i]->data.name));
-        ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(list[i]->data.name));
+        ui->tableWidget->setVerticalHeaderItem(i, (new QTableWidgetItem(list[i].data.getName())));
+        ui->tableWidget->setHorizontalHeaderItem(i, (new QTableWidgetItem(list[i].data.getName())));
     }
     for(int i = 0; i<list.size(); i++)
     {
         for(int j = i; j<list.size(); j++)
         {
-            cell[i][j] = new QTableWidgetItem(QString::number( D(list[i]->data.text, list[j]->data.text)));
-            if(i!=j) cell[j][i] = new QTableWidgetItem(QString::number(D(list[i]->data.text, list[j]->data.text)));
+            cell[i][j] = new QTableWidgetItem(QString::number( D((list[i].data.getText()), (list[j].data.getText()))));
+            if(i!=j) cell[j][i] = new QTableWidgetItem(QString::number(D((list[i].data.getText()), (list[j].data.getText()))));
             ui->tableWidget->setItem(i, j , cell[i][j]);
             ui->tableWidget->setItem(j, i , cell[j][i]);
         }

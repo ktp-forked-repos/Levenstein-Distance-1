@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 26. Sep 16:43:01 2017
+** Created: Sat 30. Sep 13:18:34 2017
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -15,7 +15,6 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QCheckBox>
-#include <QtGui/QDateEdit>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -50,7 +49,7 @@ public:
     QLineEdit *lineEdit;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_2;
-    QDateEdit *dateEdit;
+    QLineEdit *lineEdit_3;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_3;
     QTextEdit *textEdit;
@@ -147,10 +146,10 @@ public:
 
         horizontalLayout_2->addWidget(label_2);
 
-        dateEdit = new QDateEdit(layoutWidget1);
-        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
+        lineEdit_3 = new QLineEdit(layoutWidget1);
+        lineEdit_3->setObjectName(QString::fromUtf8("lineEdit_3"));
 
-        horizontalLayout_2->addWidget(dateEdit);
+        horizontalLayout_2->addWidget(lineEdit_3);
 
 
         verticalLayout_3->addLayout(horizontalLayout_2);
@@ -307,13 +306,13 @@ public:
         pushButton->setText(QApplication::translate("MainWindow", "Add message", 0, QApplication::UnicodeUTF8));
         checkBox->setText(QApplication::translate("MainWindow", "Push_back", 0, QApplication::UnicodeUTF8));
         pushButton_2->setText(QApplication::translate("MainWindow", "Check", 0, QApplication::UnicodeUTF8));
-        label_4->setText(QApplication::translate("MainWindow", "Cash:", 0, QApplication::UnicodeUTF8));
-        pushButton_3->setText(QApplication::translate("MainWindow", "size", 0, QApplication::UnicodeUTF8));
-        pushButton_4->setText(QApplication::translate("MainWindow", "isEmpty", 0, QApplication::UnicodeUTF8));
+        label_4->setText(QApplication::translate("MainWindow", "Console:", 0, QApplication::UnicodeUTF8));
+        pushButton_3->setText(QApplication::translate("MainWindow", "Size", 0, QApplication::UnicodeUTF8));
+        pushButton_4->setText(QApplication::translate("MainWindow", "Is Empty", 0, QApplication::UnicodeUTF8));
         pushButton_5->setText(QApplication::translate("MainWindow", "Delete", 0, QApplication::UnicodeUTF8));
         checkBox_2->setText(QApplication::translate("MainWindow", "Del_back", 0, QApplication::UnicodeUTF8));
         pushButton_7->setText(QApplication::translate("MainWindow", "Similar", 0, QApplication::UnicodeUTF8));
-        pushButton_6->setText(QApplication::translate("MainWindow", "show", 0, QApplication::UnicodeUTF8));
+        pushButton_6->setText(QApplication::translate("MainWindow", "Show", 0, QApplication::UnicodeUTF8));
         pushButton_8->setText(QApplication::translate("MainWindow", "Write to flie", 0, QApplication::UnicodeUTF8));
         pushButton_9->setText(QApplication::translate("MainWindow", "Read from file", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

@@ -14,13 +14,25 @@ class Post
 {
 public:
     Post();
-    Post(QString n, QString d, QString t);
+    Post(QString _name, QString _date, QString _text);
     Post (const Post &a);
     ~Post();
+    QString getText();
+    QString getDate();
+    QString getName();
+    void setText(QString _text);
+    void setDate(QString _date);
+    void setName(QString _name);
+    void show();
+    //int D(QString a, QString b);
+    //int min(int a, int b, int c);
    // Post (const Post &);
+private:
     QString text;
     QString name;
-    QString date;
+    Date date;
+    QString dateToString();
+
 
 
 

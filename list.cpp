@@ -1,4 +1,5 @@
 #include "list.h"
+#include <stdio.h>
 
 List::List()
 {
@@ -10,10 +11,7 @@ List::List(Post a)
     push_front(a);
 }
 
-List::List(List &a)
-{
-
-}
+List::List(const List &a) : first(a.first) , last(a.last) { }
 
 List::~List()
 {
@@ -24,9 +22,17 @@ List::~List()
 
 bool List::isEmpty()
 {
-    if(this->first) return false; else return true;
+    if(this->first)
+    {
+        qDebug("Not empty");
+        return false;
+    }
+    else
+    {
+        qDebug("Empty");
+        return true;
+    }
 }
-
 int List::size()
 {
     DynItem* temp = first;
@@ -36,6 +42,7 @@ int List::size()
         count+=1;
         temp = temp->next;
     }
+    qDebug("Size is %d", count);
     return count;
 }
 
@@ -52,6 +59,7 @@ void List::del_back()
         }
         else delete last, last = first = NULL;
     }
+    printf("del_back()\n");
 }
 
 void List::del_front()
@@ -67,18 +75,24 @@ void List::del_front()
         }
         else delete first, last = first = NULL;
     }
-
+    printf("del_front\n");
 }
 
-DynItem* List::operator [](int i)
+DynItem& List::operator [](int i)
 {
     DynItem *temp = first;
     for(int j = 0; j<i; j++) temp = temp->next;
-    return temp;
+    return *temp;
+}
+
+void List::show()
+{
+    for(DynItem *a = first; a; a=a->next) a->data.show();
 }
 
 void List::push_front(Post a)
 {
+    printf("push_front()\n");
     DynItem *temp = new DynItem;
     temp->next=NULL;
     temp->prev=NULL;
@@ -92,11 +106,12 @@ void List::push_front(Post a)
         temp->next=first;
         first->prev = temp;
         first=temp;
-    }
+    }    
 }
 
 void List::push_back(Post a)
 {
+    printf("push_back()\n");
     DynItem *temp = new DynItem;
     temp->next=NULL;
     temp->prev=NULL;
@@ -110,15 +125,17 @@ void List::push_back(Post a)
         temp->prev=last;
         last->next = temp;
         last=temp;
-    }
+    }  
 }
 
-DynItem* List::pop_front()
+DynItem& List::pop_front()
 {
-    return this->first;
+    printf("pop_front()\n");
+    return *this->first;
 }
 
-DynItem* List::pop_back()
+DynItem& List::pop_back()
 {
-    return this->last;
+    printf("pop_back()");
+    return *this->last;
 }
