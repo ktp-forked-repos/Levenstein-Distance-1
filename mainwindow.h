@@ -5,7 +5,6 @@
 #include "post.h"
 #include "list.h"
 #include <QFile>
-using namespace A;
 
 namespace Ui {
 class MainWindow;
@@ -20,28 +19,19 @@ public:
     ~MainWindow();
 private:
     List list;
-    int counter;
     Ui::MainWindow *ui;
-    void showPost();
-    int D(QString a, QString b);
-    int min(int a, int b, int c);
-    int m(QChar y, QChar z);
     Post a;
-    QFile file;
+    void show_l(List *a);
 private slots:
     void addPost();
-    void func();
+    void makeTable();
     void size_l();
     void show_l();
     void del_l();
+    void sim_l();
     void isEmpty_l();
-    void similar();
-    void writeToF();
-    void readFromF();
-signals:
-    void canCheck();
-
-
+    void save();
+    void load();
 };
 
 #endif // MAINWINDOW_H

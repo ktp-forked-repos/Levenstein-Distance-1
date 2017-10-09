@@ -4,7 +4,8 @@
 
 DynItem::DynItem()
 {
-
+    next = NULL;
+    prev = NULL;
 }
 
 DynItem::DynItem(Post a)
@@ -12,7 +13,7 @@ DynItem::DynItem(Post a)
     data = a;
 }
 
-DynItem::DynItem(DynItem &a)
+DynItem::DynItem(const DynItem &a)
 {
     data = a.data;
     next = a.next;

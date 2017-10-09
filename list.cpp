@@ -24,12 +24,12 @@ bool List::isEmpty()
 {
     if(this->first)
     {
-        qDebug("Not empty");
+        std::cout<<"Not empty"<<std::endl;
         return false;
     }
     else
     {
-        qDebug("Empty");
+        std::cout<<"Empty"<<std::endl;
         return true;
     }
 }
@@ -42,7 +42,7 @@ int List::size()
         count+=1;
         temp = temp->next;
     }
-    qDebug("Size is %d", count);
+    std::cout<<"Size is "<<count<<std::endl;
     return count;
 }
 
@@ -59,7 +59,6 @@ void List::del_back()
         }
         else delete last, last = first = NULL;
     }
-    printf("del_back()\n");
 }
 
 void List::del_front()
@@ -75,10 +74,9 @@ void List::del_front()
         }
         else delete first, last = first = NULL;
     }
-    printf("del_front\n");
 }
 
-DynItem& List::operator [](int i)
+DynItem List::operator [](int i)
 {
     DynItem *temp = first;
     for(int j = 0; j<i; j++) temp = temp->next;
@@ -92,17 +90,16 @@ void List::show()
 
 void List::push_front(Post a)
 {
-    printf("push_front()\n");
     DynItem *temp = new DynItem;
-    temp->next=NULL;
-    temp->prev=NULL;
     temp->data = a;
-    if(!(this->first||this->last))
+    if(!(this->first))
     {
+        qDebug("Here");
         this->first = this->last = temp;
     }
     else
     {
+        qDebug("there");
         temp->next=first;
         first->prev = temp;
         first=temp;
@@ -111,12 +108,9 @@ void List::push_front(Post a)
 
 void List::push_back(Post a)
 {
-    printf("push_back()\n");
     DynItem *temp = new DynItem;
-    temp->next=NULL;
-    temp->prev=NULL;
     temp->data = a;
-    if(!(this->first||this->last))
+    if(!(this->last))
     {
         this->first = this->last = temp;
     }
@@ -128,14 +122,70 @@ void List::push_back(Post a)
     }  
 }
 
-DynItem& List::pop_front()
+DynItem* List::pop_front()
 {
-    printf("pop_front()\n");
-    return *this->first;
+    return this->first;
 }
 
-DynItem& List::pop_back()
+DynItem* List::pop_back()
 {
-    printf("pop_back()");
-    return *this->last;
+    return this->last;
+}
+
+void List::writeToF(QString f_name)
+{
+    QFile file;
+    file.setFileName(f_name);
+    file.open(QIODevice::WriteOnly);
+    QDataStream stream(&file);
+    for(DynItem* temp = first; temp; temp=temp->next)
+    {
+        stream<<temp->data.getName();
+        stream<< (temp->data.getDate());
+        stream<<(temp->data.getText());
+    }
+    file.close();
+}
+
+void List::readFromF(QString f_name)
+{
+    QFile file;
+    file.setFileName(f_name);
+    file.open(QIODevice::ReadOnly);
+    QDataStream stream(&file);
+    while(!file.atEnd())
+    {
+        QString name ;//= file.readLine();
+        QString date ;//= file.readLine();
+        QString text; //= file.readLine();
+        stream>>name>>date>>text;
+        name.remove("\r\n");
+        text.remove("\r\n");
+        text.remove("\n");
+        name.remove("\n");
+        Post a(name, date, text);
+        push_front(a);
+    }
+    file.close();
+}
+
+List List::similar(Post _data)
+{
+    List result;
+    if(size())
+    {
+        int min = -1;
+        min = distLevenstein((_data.getText()), (first->data.getText()));
+        for(DynItem* temp = first->next; temp; temp = temp->next)
+        {
+            int curr_dist = distLevenstein((_data.getText()), (temp->data.getText()));
+            if(curr_dist<min) min = curr_dist;
+        }
+        for(DynItem* temp = first; temp; temp = temp->next)
+        {
+            int curr_dist = distLevenstein((_data.getText()), (temp->data.getText()));
+            if(min == curr_dist) result.push_front(temp->data);
+        }
+    }
+    return result;
 }

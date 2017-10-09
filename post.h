@@ -10,6 +10,13 @@ struct Date
     int year;
 };
 
+namespace Distances
+{
+    int distLevenstein(QString a, QString b);
+    int distHamming(QString a, QString b);
+    int min(int a, int b, int c);
+}
+
 class Post
 {
 public:
@@ -24,9 +31,7 @@ public:
     void setDate(QString _date);
     void setName(QString _name);
     void show();
-    //int D(QString a, QString b);
-    //int min(int a, int b, int c);
-   // Post (const Post &);
+
 private:
     QString text;
     QString name;

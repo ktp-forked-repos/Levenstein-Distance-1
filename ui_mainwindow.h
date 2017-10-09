@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sat 30. Sep 13:18:34 2017
+** Created: Fri 6. Oct 12:50:35 2017
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -61,7 +61,7 @@ public:
     QLabel *label_4;
     QTextEdit *textEdit_2;
     QLineEdit *lineEdit_2;
-    QWidget *widget;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_4;
     QVBoxLayout *verticalLayout_7;
     QPushButton *pushButton_3;
@@ -70,7 +70,7 @@ public:
     QCheckBox *checkBox_2;
     QPushButton *pushButton_7;
     QPushButton *pushButton_6;
-    QWidget *widget1;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout_8;
     QPushButton *pushButton_8;
     QPushButton *pushButton_9;
@@ -216,10 +216,10 @@ public:
         lineEdit_2 = new QLineEdit(centralWidget);
         lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
         lineEdit_2->setGeometry(QRect(720, 20, 113, 22));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(320, 10, 383, 102));
-        horizontalLayout_4 = new QHBoxLayout(widget);
+        layoutWidget2 = new QWidget(centralWidget);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(320, 10, 383, 102));
+        horizontalLayout_4 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
@@ -227,17 +227,17 @@ public:
         verticalLayout_7 = new QVBoxLayout();
         verticalLayout_7->setSpacing(6);
         verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
-        pushButton_3 = new QPushButton(widget);
+        pushButton_3 = new QPushButton(layoutWidget2);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
 
         verticalLayout_7->addWidget(pushButton_3);
 
-        pushButton_4 = new QPushButton(widget);
+        pushButton_4 = new QPushButton(layoutWidget2);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
 
         verticalLayout_7->addWidget(pushButton_4);
 
-        pushButton_5 = new QPushButton(widget);
+        pushButton_5 = new QPushButton(layoutWidget2);
         pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
 
         verticalLayout_7->addWidget(pushButton_5);
@@ -245,35 +245,35 @@ public:
 
         horizontalLayout_4->addLayout(verticalLayout_7);
 
-        checkBox_2 = new QCheckBox(widget);
+        checkBox_2 = new QCheckBox(layoutWidget2);
         checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
 
         horizontalLayout_4->addWidget(checkBox_2);
 
-        pushButton_7 = new QPushButton(widget);
+        pushButton_7 = new QPushButton(layoutWidget2);
         pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
 
         horizontalLayout_4->addWidget(pushButton_7);
 
-        pushButton_6 = new QPushButton(widget);
+        pushButton_6 = new QPushButton(layoutWidget2);
         pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
 
         horizontalLayout_4->addWidget(pushButton_6);
 
-        widget1 = new QWidget(centralWidget);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(850, 20, 95, 65));
-        verticalLayout_8 = new QVBoxLayout(widget1);
+        layoutWidget3 = new QWidget(centralWidget);
+        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(850, 20, 95, 65));
+        verticalLayout_8 = new QVBoxLayout(layoutWidget3);
         verticalLayout_8->setSpacing(6);
         verticalLayout_8->setContentsMargins(11, 11, 11, 11);
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
         verticalLayout_8->setContentsMargins(0, 0, 0, 0);
-        pushButton_8 = new QPushButton(widget1);
+        pushButton_8 = new QPushButton(layoutWidget3);
         pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
 
         verticalLayout_8->addWidget(pushButton_8);
 
-        pushButton_9 = new QPushButton(widget1);
+        pushButton_9 = new QPushButton(layoutWidget3);
         pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
 
         verticalLayout_8->addWidget(pushButton_9);
@@ -313,8 +313,8 @@ public:
         checkBox_2->setText(QApplication::translate("MainWindow", "Del_back", 0, QApplication::UnicodeUTF8));
         pushButton_7->setText(QApplication::translate("MainWindow", "Similar", 0, QApplication::UnicodeUTF8));
         pushButton_6->setText(QApplication::translate("MainWindow", "Show", 0, QApplication::UnicodeUTF8));
-        pushButton_8->setText(QApplication::translate("MainWindow", "Write to flie", 0, QApplication::UnicodeUTF8));
-        pushButton_9->setText(QApplication::translate("MainWindow", "Read from file", 0, QApplication::UnicodeUTF8));
+        pushButton_8->setText(QApplication::translate("MainWindow", "Save", 0, QApplication::UnicodeUTF8));
+        pushButton_9->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -7,10 +7,11 @@ class DynItem
 public:
     DynItem();
     DynItem(Post a);
-    DynItem(DynItem &a);
+    DynItem(const DynItem &a);
     ~DynItem();
-    Post data;
     DynItem *next, *prev;
+    Post data;
+
 
 
 
