@@ -2,19 +2,9 @@
 #include "mainwindow.h"
 #include <QTextStream>
 #include <stdio.h>
+#include <cassert>
 #include <iostream>
 
-Post getPost()
-{
-    char *n=NULL, *d=NULL, *t=NULL;
-    printf("Enter the name: \n");
-    scanf("%s", n);
-    printf("Enter the date(dd/mm/yyyy): \n");
-    scanf("%s", d);
-    printf("Enter the text: \n");
-    scanf("%s", t);
-    return Post(QString(n), QString(d), QString(t));
-}
 
 int main(int argc, char *argv[])
 {
@@ -22,17 +12,23 @@ int main(int argc, char *argv[])
 //    int k = 0;
 //    scanf("%d",&k);
 //    if(k){
-//        List l;
-//        l.push_front(Post("a","22/11/2000", "b"));
-//        l.push_front(Post());
-//        l.push_front(Post("a2","22/11/2000", "b2"));
-//        l.push_front(Post("a3","22/11/2000", "b3"));
-//        l.push_front(Post("a4","22/11/2000", "b4"));
-//        l[0]->data.show();
-//        l[1]->data.show();
-//        l[2]->data.show();
-//        l[3]->data.show();
-//        l[4]->data.show();
+        List l0;
+        l0.push_front(Post("a","22/11/2000", "b"));
+        assert(l0.front().getName()=="a" && l0.front().getDate()=="22/11/2000" && l0.front().getText()=="b");
+        l0.push_front(Post());
+        l0.push_front(Post("a2","22/11/2000", "b2"));
+        assert(l0.front().getName()=="a2" && l0.front().getDate()=="22/11/2000" && l0.front().getText()=="b2");
+        l0.push_back(Post("a3","22/11/2000", "b3"));
+        assert(l0.back().getName()=="a3" && l0.back().getDate()=="22/11/2000" && l0.back().getText()=="b3");
+        l0.pop_front();
+        assert(l0.front().getDate()=="22/11/2017"&&l0.front().getName()=="Pavel"&&l0.front().getText()=="Hello, world!");
+
+        List l2 = l0;
+        l0.pop_back();
+        std::cout<<"---------------"<<std::endl;
+        l2.show();
+std::cout<<"---------------"<<::endl;
+        l2.show();
 //        printf("-------------\n");
 //        Post x = l[3]->data;
 //        x.show();
@@ -50,9 +46,9 @@ int main(int argc, char *argv[])
     l.show();
     l.setDate("1/d/2");
 //    {
-        QApplication a (argc, argv);
-        MainWindow w;
-        w.show();
-        return a.exec();
+//        QApplication a (argc, argv);
+//        MainWindow w;
+//        w.show();
+//        return a.exec();
 //    }
 }

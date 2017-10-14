@@ -1,17 +1,30 @@
 #include "list.h"
 #include <stdio.h>
+#include <cassert>
+
+using namespace std;
 
 List::List()
 {
     first=last=NULL;
+    sizeOf = 0;
 }
 
 List::List(Post a)
 {
     push_front(a);
+    sizeOf = 0;
 }
 
-List::List(const List &a) : first(a.first) , last(a.last) { }
+List:: List(const List &a)
+{
+    first =last = NULL;
+    sizeOf = 0;
+    for(DynItem *temp = a.first; temp; temp=temp->next)
+    {
+        this->push_back(temp->data);
+    }
+}
 
 List::~List()
 {
@@ -32,47 +45,53 @@ bool List::isEmpty()
         std::cout<<"Empty"<<std::endl;
         return true;
     }
+
 }
 int List::size()
 {
-    DynItem* temp = first;
-    int count = 0;
-    while(temp)
-    {
-        count+=1;
-        temp = temp->next;
-    }
-    std::cout<<"Size is "<<count<<std::endl;
-    return count;
+    return sizeOf;
 }
 
-void List::del_back()
+void List::pop_back()
 {
+
     if(last)
     {
         DynItem* temp = last;
         if(last->prev)
         {
+            DynItem *last_prev = last->prev;
             last = last->prev;
             delete temp;
             last->next = NULL;
+            sizeOf-=1;
         }
-        else delete last, last = first = NULL;
+        else delete last, last = first = NULL, sizeOf = 0;
+    }
+    else
+    {
+        cout<<"List is empty"<<endl;
     }
 }
 
-void List::del_front()
+void List::pop_front()
 {
     if(first)
     {
         DynItem* temp = first;
         if(first->next)
         {
+            DynItem *first_next = first->next;
             first = first->next;
             delete temp;
             first->prev = NULL;
+            sizeOf-=1;
         }
-        else delete first, last = first = NULL;
+        else delete first, last = first = NULL, sizeOf = 0;
+    }
+    else
+    {
+        cout<<"List is empty"<<endl;
     }
 }
 
@@ -94,16 +113,16 @@ void List::push_front(Post a)
     temp->data = a;
     if(!(this->first))
     {
-        qDebug("Here");
         this->first = this->last = temp;
+        sizeOf+=1;
     }
     else
     {
-        qDebug("there");
         temp->next=first;
         first->prev = temp;
         first=temp;
-    }    
+        sizeOf+=1;
+    }
 }
 
 void List::push_back(Post a)
@@ -113,26 +132,28 @@ void List::push_back(Post a)
     if(!(this->last))
     {
         this->first = this->last = temp;
+        sizeOf+=1;
     }
     else
     {
         temp->prev=last;
         last->next = temp;
         last=temp;
+        sizeOf+=1;
     }  
 }
 
-DynItem* List::pop_front()
+Post& List::front()
 {
-    return this->first;
+    return this->first->data;
 }
 
-DynItem* List::pop_back()
+Post& List::back()
 {
-    return this->last;
+    return this->last->data;
 }
 
-void List::writeToF(QString f_name)
+void List::writeToFile(QString f_name)
 {
     QFile file;
     file.setFileName(f_name);
@@ -140,14 +161,12 @@ void List::writeToF(QString f_name)
     QDataStream stream(&file);
     for(DynItem* temp = first; temp; temp=temp->next)
     {
-        stream<<temp->data.getName();
-        stream<< (temp->data.getDate());
-        stream<<(temp->data.getText());
+        stream<<temp->data.getName()<<temp->data.getDate()<<temp->data.getText();
     }
     file.close();
 }
 
-void List::readFromF(QString f_name)
+void List::readFromFile(QString f_name)
 {
     QFile file;
     file.setFileName(f_name);

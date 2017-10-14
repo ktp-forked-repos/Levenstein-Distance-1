@@ -17,18 +17,20 @@ public:
     ~List();
     void push_front(Post a);
     void push_back(Post a);
-    void del_back();
-    void del_front();
-    DynItem* pop_front();
-    DynItem* pop_back();
+    void pop_back(); //pop void or dynitem
+    void pop_front();
+    Post& front(); // post!!! not pointers
+    Post& back();
     DynItem operator [](int i);
-    DynItem *first, *last;
     int size();
     bool isEmpty();
     void show();
     List similar(Post _data);
-    void writeToF(QString f_name);
-    void readFromF(QString f_name);
+    void writeToFile(QString f_name);
+    void readFromFile(QString f_name);
+private:
+    DynItem *first, *last;
+    int sizeOf;//
 };
 
 #endif // LIST_H

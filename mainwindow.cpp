@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <stdio.h>
 #include <QTextStream>
+#include <cassert>
 
 using namespace Distances;
 
@@ -23,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(sim_l()));
     QObject::connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(save()));
     QObject::connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(load()));
+    assert(list.isEmpty()&&list.size()==0);
 }
 
 MainWindow::~MainWindow()
@@ -42,21 +44,19 @@ void MainWindow::size_l()
 
 void MainWindow::show_l(List *a)
 {
-    int i = 1;
-    for(DynItem *t = a->first; t; t = t->next, i++)
-        ui->textEdit_2->append("-----Similar post # "+ QString::number(i)+ "------\nName: "+  (t->data.getName()) +"\nDate: "+ (t->data.getDate())+"\nMessage:\n"+ (t->data.getText())+"\n");
+    for(int i = 0; i<a->size(); i++)
+        ui->textEdit_2->append("-----Similar post # "+ QString::number(i+1)+ "------\nName: "+  ((*a)[i].data.getName()) +"\nDate: "+ ((*a)[i].data.getDate())+"\nMessage:\n"+ ((*a)[i].data.getText())+"\n");
 }
 
 void MainWindow::show_l()
 {
-    int i = 1;
-    for(DynItem *t = list.first; t; t = t->next, i++)
-        ui->textEdit_2->append("-----Post # "+ QString::number(i)+ "------\nName: "+  (t->data.getName()) +"\nDate: "+ (t->data.getDate())+"\nMessage:\n"+ (t->data.getText())+"\n");
+    for(int i = 0; i<list.size(); i++)
+        ui->textEdit_2->append("-----Post # "+ QString::number(i+1)+ "------\nName: "+  (list[i].data.getName()) +"\nDate: "+ (list[i].data.getDate())+"\nMessage:\n"+ (list[i].data.getText())+"\n");
 }
 
 void MainWindow::del_l()
 {
-    if(ui->checkBox_2->isChecked()) list.del_back(); else list.del_front();
+    if(ui->checkBox_2->isChecked()) list.pop_back(); else list.pop_front();
     if(list.size()>1) ui->pushButton_2->setEnabled(true); else ui->pushButton_2->setDisabled(true);
 }
 
@@ -69,13 +69,13 @@ void MainWindow::sim_l()
 
 void MainWindow::save()
 {
-    list.writeToF(ui->lineEdit_2->text());
+    list.writeToFile(ui->lineEdit_2->text());
     ui->textEdit_2->append("Saved to file: "+ui->lineEdit_2->text());
 }
 
 void MainWindow::load()
 {
-    list.readFromF(ui->lineEdit_2->text());
+    list.readFromFile(ui->lineEdit_2->text());
     ui->textEdit_2->append("Load from file: "+ui->lineEdit_2->text());
     if(list.size()>1) ui->pushButton_2->setEnabled(true);
     else ui->pushButton_2->setDisabled(true);
@@ -83,21 +83,21 @@ void MainWindow::load()
 
 void MainWindow::addPost()
 {   
-        if(list.size()>=1) ui->pushButton_2->setEnabled(true); else ui->pushButton_2->setDisabled(true);
-        Post a(ui->lineEdit->text(), ui->lineEdit_3->text(),ui->textEdit->toPlainText());
-        if(ui->checkBox->isChecked())
-        {
-            list.push_back(a);
-            ui->textEdit_2->append("-----Post # "+ QString::number(list.size())+ "------\nName: "+  list.pop_back()->data.getName() +"\nDate: "+ list.pop_back()->data.getDate() +"\nMessage:\n"+ list.pop_back()->data.getText()+"\n");
-        }
-        else
-        {
-            list.push_front(a);
-            ui->textEdit_2->append("-----Post # "+ QString::number(list.size())+ "------\nName: "+  list.pop_front()->data.getName() +"\nDate: "+ list.pop_front()->data.getDate() +"\nMessage:\n"+ list.pop_front()->data.getText()+"\n");
-        }
-        ui->textEdit->clear();
-        ui->lineEdit->clear();
-        ui->label_5->setText("Enter message # "+QString::number(list.size()+1));
+    if(list.size()>=1) ui->pushButton_2->setEnabled(true); else ui->pushButton_2->setDisabled(true);
+    Post a(ui->lineEdit->text(), ui->lineEdit_3->text(),ui->textEdit->toPlainText());
+    if(ui->checkBox->isChecked())
+    {
+        list.push_back(a);
+        ui->textEdit_2->append("-----Post # "+ QString::number(list.size())+ "------\nName: "+  list.back().getName() +"\nDate: "+ list.back().getDate() +"\nMessage:\n"+ list.back().getText()+"\n");
+    }
+    else
+    {
+        list.push_front(a);
+        ui->textEdit_2->append("-----Post # "+ QString::number(list.size())+ "------\nName: "+  list.front().getName() +"\nDate: "+ list.front().getDate() +"\nMessage:\n"+ list.front().getText()+"\n");
+    }
+    ui->textEdit->clear();
+    ui->lineEdit->clear();
+    ui->label_5->setText("Enter message # "+QString::number(list.size()+1));
 }
 
 void MainWindow::makeTable()

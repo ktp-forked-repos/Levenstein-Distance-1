@@ -1,0 +1,12 @@
+UserX
+22/11/2000
+efgodfsvk'odf'vj
+User1
+22/11/2017
+If the rename operation fails, Qt will attempt to copy this file's contents to newName, and then remove this file, keeping only newName. If that copy operation fails or this file can't be removed, the destination file newNam
+User2
+22/11/2017
+If the rename attempt to copy this file's contents to newName, and then remove this file, keeping only newName. If that copy operation fails or this file can't be removed, the destination file newNam!!
+User3
+22/11/2017
+If the rename operation fails, Qt will attempt to copy this file's contents to newName, and then remove this file, keeping only newName. If that copy operation fails or this file can't be removed, the destination file newN

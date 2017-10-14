@@ -4,7 +4,6 @@
 
 Post::Post()
 {
-    printf("Basic constructor\n");
     text="Hello, World!";
     name="Pavel";
     date.day = 22;
