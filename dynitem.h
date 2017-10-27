@@ -6,16 +6,11 @@ class DynItem
 {
 public:
     DynItem();
-    DynItem(Post a);
+    DynItem(HiddenPost a);
     DynItem(const DynItem &a);
     ~DynItem();
     DynItem *next, *prev;
-    Post data;
-
-
-
-
-
+    HiddenPost *data;
 };
 
 #endif // DYNITEM_H

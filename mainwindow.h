@@ -5,6 +5,8 @@
 #include "post.h"
 #include "list.h"
 #include <QFile>
+#include <QTimer>
+#include "dialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,17 +23,23 @@ private:
     List list;
     Ui::MainWindow *ui;
     Post a;
-    void show_l(List *a);
+    void showList(List *a);
+    QTimer *checkTimer;
+    Dialog *dial;
 private slots:
     void addPost();
     void makeTable();
-    void size_l();
-    void show_l();
-    void del_l();
-    void sim_l();
-    void isEmpty_l();
+    void showSize();
+    void showList();
+    void deleteFromList();
+    void similarPosts();
+    void showEmptyness();
+    void randPost();
     void save();
     void load();
+    void checkButtons();
+    void changeFirst();
+    void changeLast();
 };
 
 #endif // MAINWINDOW_H

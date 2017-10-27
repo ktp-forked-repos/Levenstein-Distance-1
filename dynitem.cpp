@@ -6,11 +6,12 @@ DynItem::DynItem()
 {
     next = NULL;
     prev = NULL;
+    data = NULL;
 }
 
-DynItem::DynItem(Post a)
+DynItem::DynItem(HiddenPost a)
 {
-    data = a;
+    data =  &a;
 }
 
 DynItem::DynItem(const DynItem &a)

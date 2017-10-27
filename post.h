@@ -1,42 +1,20 @@
 #ifndef POST_H
 #define POST_H
-#include <QString>
-#include <QStringList>
+#include "hiddenpost.h"
 
-struct Date
-{
-    int month;
-    int day;
-    int year;
-};
-
-namespace Distances
-{
-    int distLevenstein(QString a, QString b);
-    int distHamming(QString a, QString b);
-    int min(int a, int b, int c);
-}
-
-class Post
+class Post : public HiddenPost
 {
 public:
     Post();
     Post(QString _name, QString _date, QString _text);
     Post (const Post &a);
     ~Post();
-    QString getText();
-    QString getDate();
-    QString getName();
-    void setText(QString _text);
-    void setDate(QString _date);
-    void setName(QString _name);
-    void show();
-
+    virtual QString getName();
+    virtual void setName(QString _name);
+    virtual void show();
 private:
-    QString text;
     QString name;
-    Date date;
-    QString dateToString();
+
 
 
 

@@ -9,18 +9,20 @@ QT       += core gui
 TARGET = laba1
 TEMPLATE = app
 
-
-CONFIG += console
-
 SOURCES += main.cpp\
         mainwindow.cpp \
     post.cpp \
     dynitem.cpp \
-    list.cpp
+    list.cpp \
+    hiddenpost.cpp \
+    dialog.cpp
 
 HEADERS  += mainwindow.h \
     post.h \
     dynitem.h \
-    list.h
+    list.h \
+    hiddenpost.h \
+    dialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dialog.ui

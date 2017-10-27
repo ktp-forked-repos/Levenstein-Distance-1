@@ -2,22 +2,28 @@
 #include <stdio.h>
 #include <cassert>
 
+
+
 using namespace std;
 
 List::List()
 {
+    loadDicts();
     first=last=NULL;
     sizeOf = 0;
 }
 
 List::List(Post a)
 {
-    push_front(a);
+    loadDicts();
+    first=last=NULL;
+    push_front(&a);
     sizeOf = 0;
 }
 
 List:: List(const List &a)
 {
+    loadDicts();
     first =last = NULL;
     sizeOf = 0;
     for(DynItem *temp = a.first; temp; temp=temp->next)
@@ -33,16 +39,54 @@ List::~List()
     delete a;
 }
 
+void List::loadDicts()
+{
+    QFile file;
+    file.setFileName("random_texts.dat");
+    file.open(QIODevice::ReadOnly);
+    QDataStream stream(&file);
+    while(!file.atEnd())
+    {
+        QString temp;
+        stream>>temp;
+        r_texts.append(temp);
+    }
+    file.close();
+    file.setFileName("rand_names.dat");
+    file.open(QIODevice::ReadOnly);
+    QDataStream stream1(&file);
+    while(!file.atEnd())
+    {
+        QString temp;
+        stream1>>temp;
+        r_names.append(temp);
+    }
+    file.close();
+}
+
+Post* List::randPost()
+{
+    int day = 1+qrand()%30;
+    int month = 1+qrand()%11;
+    int year = 1990+qrand()%(2018-1990);
+    QString r_date = "";
+    r_date += day>=10 ? QString::number(day)+"/" : "0"+QString::number(day)+"/";
+    r_date += month>=10 ? QString::number(month)+"/" : "0"+QString::number(month)+"/";
+    r_date += QString::number(year);
+    qDebug("%s",r_date.toLatin1().data());
+    return new Post(r_names.at(qrand()%r_names.size()), r_date, r_texts.at(qrand()%r_texts.size()));
+}
+
 bool List::isEmpty()
 {
     if(this->first)
     {
-        std::cout<<"Not empty"<<std::endl;
+        //std::cout<<"Not empty"<<std::endl;
         return false;
     }
     else
     {
-        std::cout<<"Empty"<<std::endl;
+//        std::cout<<"Empty"<<std::endl;
         return true;
     }
 
@@ -70,7 +114,7 @@ void List::pop_back()
     }
     else
     {
-        cout<<"List is empty"<<endl;
+        //cout<<"List is empty"<<endl;
     }
 }
 
@@ -91,23 +135,23 @@ void List::pop_front()
     }
     else
     {
-        cout<<"List is empty"<<endl;
+        //cout<<"List is empty"<<endl;
     }
 }
 
-DynItem List::operator [](int i)
+HiddenPost &List::operator [](int i)
 {
     DynItem *temp = first;
     for(int j = 0; j<i; j++) temp = temp->next;
-    return *temp;
+    return *temp->data;
 }
 
 void List::show()
 {
-    for(DynItem *a = first; a; a=a->next) a->data.show();
+    for(DynItem *a = first; a; a=a->next) a->data->show();
 }
 
-void List::push_front(Post a)
+void List::push_front(HiddenPost *a)
 {
     DynItem *temp = new DynItem;
     temp->data = a;
@@ -125,7 +169,7 @@ void List::push_front(Post a)
     }
 }
 
-void List::push_back(Post a)
+void List::push_back(HiddenPost *a)
 {
     DynItem *temp = new DynItem;
     temp->data = a;
@@ -143,14 +187,14 @@ void List::push_back(Post a)
     }  
 }
 
-Post& List::front()
+HiddenPost& List::front()
 {
-    return this->first->data;
+    return *this->first->data;
 }
 
-Post& List::back()
+HiddenPost& List::back()
 {
-    return this->last->data;
+    return *this->last->data;
 }
 
 void List::writeToFile(QString f_name)
@@ -161,7 +205,7 @@ void List::writeToFile(QString f_name)
     QDataStream stream(&file);
     for(DynItem* temp = first; temp; temp=temp->next)
     {
-        stream<<temp->data.getName()<<temp->data.getDate()<<temp->data.getText();
+        stream<<temp->data->getName()<<temp->data->getDate()<<temp->data->getText();
     }
     file.close();
 }
@@ -182,27 +226,27 @@ void List::readFromFile(QString f_name)
         text.remove("\r\n");
         text.remove("\n");
         name.remove("\n");
-        Post a(name, date, text);
+        Post *a = new Post(name, date, text);
         push_front(a);
     }
     file.close();
 }
 
-List List::similar(Post _data)
+List List::similar(HiddenPost _data)
 {
     List result;
     if(size())
     {
         int min = -1;
-        min = distLevenstein((_data.getText()), (first->data.getText()));
+        min = distLevenstein((_data.getText()), (first->data->getText()));
         for(DynItem* temp = first->next; temp; temp = temp->next)
         {
-            int curr_dist = distLevenstein((_data.getText()), (temp->data.getText()));
+            int curr_dist = distLevenstein((_data.getText()), (temp->data->getText()));
             if(curr_dist<min) min = curr_dist;
         }
         for(DynItem* temp = first; temp; temp = temp->next)
         {
-            int curr_dist = distLevenstein((_data.getText()), (temp->data.getText()));
+            int curr_dist = distLevenstein((_data.getText()), (temp->data->getText()));
             if(min == curr_dist) result.push_front(temp->data);
         }
     }
